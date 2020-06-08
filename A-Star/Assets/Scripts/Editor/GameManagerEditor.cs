@@ -12,7 +12,7 @@ public class GameManagerEditor : Editor
         GameManager myScript = (GameManager)target;
         if (GUILayout.Button("Bake Path"))
         {
-            myScript.GeneratePath();
+            myScript.SetupTotal();
         }
     }
 }

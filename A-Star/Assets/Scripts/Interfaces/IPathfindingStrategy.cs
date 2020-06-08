@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPathfindingStrategy
 {
-    void Excute();
+    void Excute(List<Node> nodes);
 }

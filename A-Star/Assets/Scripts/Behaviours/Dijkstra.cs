@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dijkstra : IPathfindingStrategy
 {
-    public void Excute()
+    public void Excute(List<Node> nodes)
     {
         Debug.Log("Dijkstra");
     }

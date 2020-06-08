@@ -19,9 +19,9 @@ public class Context
         this.strategy = strategy;
     }
 
-    public void FindPath()
+    public void FindPath(List<Node> nodes)
     {
         Debug.Log("Context: doing something with the strategy (not sure how it'll do it)");
-        strategy.Excute();
+        strategy.Excute(nodes);
     }
 }

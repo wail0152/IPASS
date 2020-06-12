@@ -21,7 +21,6 @@ public class Context
 
     public void FindPath(List<Node> nodes)
     {
-        Debug.Log("Context: doing something with the strategy (not sure how it'll do it)");
         strategy.Excute(nodes);
     }
 }

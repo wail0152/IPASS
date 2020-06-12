@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public PathOption pathOption;
     public Transform pointsParent;
     public float neighbourDistance;
+    public bool bakePathOnStart;
 
     private IDictionary<PathOption, IPathfindingStrategy> lookupStrategy = new Dictionary<PathOption, IPathfindingStrategy>()
     {
@@ -24,28 +26,35 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SetupTotal();
+        if (bakePathOnStart)
+            SetupTotal();
     }
 
     public void SetupTotal()
     {
         SetupNodes();
         CreateStrategy();
+        SceneView.RepaintAll();
     }
 
-    private void SetupNodes()
+    public void SetupNodes(bool forceReload = false)
     {
-        nodes = new List<Node>();
+        if (nodes == null)
+            nodes = new List<Node>();
 
-        foreach (Transform child in pointsParent)
+        if (nodes.Count != pointsParent.childCount || forceReload)
         {
-            child.gameObject.AddComponent<Node>();
-            nodes.Add(child.GetComponent<Node>());
-        }
+            nodes.Clear();
 
-        foreach (Node node in nodes)
-        {
-            node.AddNeigbours(nodes, neighbourDistance);
+            foreach (Transform child in pointsParent)
+            {
+                nodes.Add(child.GetComponent<Node>());
+            }
+
+            foreach (Node node in nodes)
+            {
+                node.AddNeigbours(this, nodes, neighbourDistance);
+            }
         }
     }
 
@@ -54,6 +63,43 @@ public class GameManager : MonoBehaviour
         Context context = new Context();
         context.SetStrategy(lookupStrategy[pathOption]);
         context.FindPath(nodes);
+    }
+
+    private void OnDrawGizmos()
+    {
+        SetupNodes();
+
+        Gizmos.color = Color.green;
+        foreach (Node node in nodes)
+        {
+            foreach (Node neigbour in node.neighbours)
+            {
+                Gizmos.DrawLine(node.transform.position, neigbour.transform.position);
+            }
+        }
+
+        Gizmos.color = Color.red;
+        Node currentNode = nodes[nodes.Count - 1];
+        while (currentNode.parentNode != null)
+        {
+            Gizmos.DrawLine(currentNode.transform.position, currentNode.parentNode.transform.position);
+            currentNode = currentNode.parentNode;
+        }
+    }
+    
+    private List<Node> GetPathToEnd()
+    {
+        List<Node> pathToEnd = new List<Node>();
+
+        Node currentNode = nodes[nodes.Count - 1];
+        pathToEnd.Add(currentNode);
+        while (currentNode.parentNode != null)
+        {
+            currentNode = currentNode.parentNode;
+            pathToEnd.Add(currentNode);
+        }
+
+        return pathToEnd;
     }
 
 }

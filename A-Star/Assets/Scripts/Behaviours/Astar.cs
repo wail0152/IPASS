@@ -33,7 +33,7 @@ public class Astar : IPathfindingStrategy
             openNodes.Remove(currentNode);
             closedNodes.Add(currentNode);
 
-            if (currentNode == endNode)
+            if (currentNode == endNode || currentNode == null)
                 break;
 
             foreach (Node neighbour in currentNode.neighbours)
@@ -45,7 +45,7 @@ public class Astar : IPathfindingStrategy
                 {
                     neighbour.gCost = Vector3.Distance(neighbour.transform.position, startNode.transform.position);
                     neighbour.hCost = Vector3.Distance(neighbour.transform.position, endNode.transform.position);
-                    neighbour.parent = currentNode;
+                    neighbour.parentNode = currentNode;
                     openNodes.Add(neighbour);
                 }
             }

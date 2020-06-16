@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
         Dijksta
     }
 
+    [Header("Algorithm Settings")]
     public PathOption pathOption;
     public Transform pointsParent;
     public float neighbourDistance;
     public bool bakePathOnStart;
+    public bool drawPath;
 
     private IDictionary<PathOption, IPathfindingStrategy> lookupStrategy = new Dictionary<PathOption, IPathfindingStrategy>()
     {
@@ -78,12 +80,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Gizmos.color = Color.red;
-        Node currentNode = nodes[nodes.Count - 1];
-        while (currentNode.parentNode != null)
+        if (drawPath)
         {
-            Gizmos.DrawLine(currentNode.transform.position, currentNode.parentNode.transform.position);
-            currentNode = currentNode.parentNode;
+            Gizmos.color = Color.red;
+            Node currentNode = nodes[nodes.Count - 1];
+            while (currentNode.parentNode != null)
+            {
+                Gizmos.DrawLine(currentNode.transform.position, currentNode.parentNode.transform.position);
+                currentNode = currentNode.parentNode;
+            }
         }
     }
     

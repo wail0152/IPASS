@@ -11,8 +11,12 @@ public class FlyCamera : MonoBehaviour
     public float normalMoveSpeed = 10;
     public float slowMoveSpeed = 5;
     public float fastMoveSpeed = 15;
-    public InputMaster controls;
 
+    [Header("Misc Settings")]
+    public LayerMask groundMask;
+
+    private GameManager gameManager;
+    private InputMaster controls;
     private Vector2 moveDir;
     private Vector2 rotation;
     private float movementSpeed;
@@ -21,8 +25,9 @@ public class FlyCamera : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
         controls = new InputMaster();
-
+        
         controls.Camera.Escape.performed += ctx => ToggleEscape();
 
         controls.Camera.MousePosition.performed += ctx => CalculateRotation(ctx.ReadValue<Vector2>());
@@ -35,6 +40,9 @@ public class FlyCamera : MonoBehaviour
 
         controls.Camera.Height.performed += ctx => upMultiplier = ctx.ReadValue<float>();
         controls.Camera.Height.canceled += ctx => upMultiplier = 0;
+
+        controls.Camera.LeftClick.performed += ctx => SetMarkerPosition(gameManager.start);
+        controls.Camera.RightClick.performed += ctx => SetMarkerPosition(gameManager.end);
 
         ToggleEscape();
     }
@@ -75,6 +83,13 @@ public class FlyCamera : MonoBehaviour
         SetSpeed(speedMultiplier);
         transform.position += (transform.forward * moveDir.y + transform.right * moveDir.x) * movementSpeed * Time.deltaTime;
         transform.position += transform.up * verticalSpeed * upMultiplier * Time.deltaTime;
+    }
+
+    private void SetMarkerPosition(Transform marker)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, Mathf.Infinity, groundMask))
+            marker.transform.position = hit.point;
     }
 
 }

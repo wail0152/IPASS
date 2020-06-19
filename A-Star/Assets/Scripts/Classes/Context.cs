@@ -19,8 +19,8 @@ public class Context
         this.strategy = strategy;
     }
 
-    public void FindPath(List<Node> nodes)
+    public void FindPath(List<Node> nodes, Node startNode, Node endNode)
     {
-        strategy.Excute(nodes);
+        strategy.Excute(nodes, startNode, endNode);
     }
 }

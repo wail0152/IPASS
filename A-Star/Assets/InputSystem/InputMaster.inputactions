@@ -46,6 +46,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "RightClick",
+                    "type": "Button",
+                    "id": "999c37ad-f616-46d5-ae7e-53f3f8df0ac5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "MousePosition",
                     "type": "Value",
                     "id": "b16947b0-b999-4ad3-bf9d-85eb2066f635",
@@ -321,39 +329,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dc9c8409-caef-4b86-8632-5a8ed8af081e",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and mouse",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3cda74bc-070e-4fb9-9acb-caa5e870722d",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fb082a7d-3138-4d61-b9cb-6a40d6bd7023",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "bd35cdc4-daa4-489f-8b4f-bc759691ea25",
                     "path": "<Mouse>/delta",
                     "interactions": "",
@@ -371,6 +346,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc09fe2e-d4c6-4b6f-94b9-eea7d92d5197",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dce304d8-09f3-4b32-b62f-fbd77873932c",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc9c8409-caef-4b86-8632-5a8ed8af081e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cda74bc-070e-4fb9-9acb-caa5e870722d",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

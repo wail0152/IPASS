@@ -34,7 +34,7 @@ public class Node : MonoBehaviour
     {
         if (transform.hasChanged && gameManager != null)
         {
-            gameManager.SetupNodes(true);
+            gameManager.SetupNodes();
             transform.hasChanged = false;
         }
     }

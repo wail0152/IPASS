@@ -10,9 +10,17 @@ public class GameManagerEditor : Editor
         DrawDefaultInspector();
 
         GameManager myScript = (GameManager)target;
+
         if (GUILayout.Button("Bake Path"))
         {
-            myScript.SetupTotal();
+            myScript.SetupAlgorithm();
+            SceneView.RepaintAll();
+        }
+
+        if (GUILayout.Button("Refresh"))
+        {
+            myScript.SetupNodes();
+            SceneView.RepaintAll();
         }
     }
 }

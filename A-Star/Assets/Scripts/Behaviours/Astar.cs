@@ -10,19 +10,19 @@ public class Astar : IPathfindingStrategy
     private Node startNode;
     private Node endNode;
 
-    public void Excute(List<Node> nodes)
+    public void Excute(List<Node> nodes, Node startNode, Node endNode)
     {
-        Setup(nodes);
+        Setup(nodes, startNode, endNode);
         Algorithm();
     }
 
-    private void Setup(List<Node> nodes)
+    private void Setup(List<Node> nodes, Node startNode, Node endNode)
     {
         openNodes = new List<Node>();
         closedNodes = new List<Node>();
-        startNode = nodes[0];
-        endNode = nodes[nodes.Count - 1];
-        openNodes.Add(startNode);
+        this.startNode = startNode;
+        this.endNode = endNode;
+        openNodes.Add(this.startNode);
     }
 
     private void Algorithm()

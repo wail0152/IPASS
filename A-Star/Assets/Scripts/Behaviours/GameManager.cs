@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    [Header("Algorithm Settings")]
+    public PathOption pathOption;
+    public float neighbourDistance;
+    public bool bakePathOnStart;
+    public bool SetupNodeOnBake;
+
+    [Header("Node Settings")]
+    public Transform start;
+    public Transform end;
+    public bool drawPath;
+    public bool drawConnections;
+
+    private Node startNode;
+    private Node endNode;
+    private List<Node> nodes = new List<Node>();
+
     public enum PathOption
     {
         AStar,
         Dijksta
     }
-
-    [Header("Algorithm Settings")]
-    public PathOption pathOption;
-    public Transform pointsParent;
-    public float neighbourDistance;
-    public bool bakePathOnStart;
-    public bool drawPath;
 
     private IDictionary<PathOption, IPathfindingStrategy> lookupStrategy = new Dictionary<PathOption, IPathfindingStrategy>()
     {
@@ -24,67 +34,75 @@ public class GameManager : MonoBehaviour
         { PathOption.Dijksta, new Dijkstra() }
     };
 
-    private List<Node> nodes;
-
     private void Start()
     {
-        if (bakePathOnStart)
-            SetupTotal();
-    }
-
-    public void SetupTotal()
-    {
         SetupNodes();
-        CreateStrategy();
-        SceneView.RepaintAll();
+
+        if (bakePathOnStart)
+            SetupAlgorithm();
     }
 
-    public void SetupNodes(bool forceReload = false)
+    public void SetupAlgorithm()
     {
-        if (nodes == null)
-            nodes = new List<Node>();
-
-        if (nodes.Count != pointsParent.childCount || forceReload)
-        {
-            nodes.Clear();
-
-            foreach (Transform child in pointsParent)
-            {
-                nodes.Add(child.GetComponent<Node>());
-            }
-
-            foreach (Node node in nodes)
-            {
-                node.AddNeigbours(this, nodes, neighbourDistance);
-            }
-        }
+        startNode = FindClosestNode(start);
+        endNode = FindClosestNode(end);
+        UseStrategy();
     }
 
-    private void CreateStrategy()
+    public void SetupNodes()
+    {
+        nodes.Clear();
+
+        foreach (Node node in FindObjectsOfType<Node>())
+        {
+            nodes.Add(node);
+        }
+
+        nodes?.ForEach(node => node.AddNeigbours(this, nodes, neighbourDistance));
+    }
+
+    private void UseStrategy()
     {
         Context context = new Context();
         context.SetStrategy(lookupStrategy[pathOption]);
-        context.FindPath(nodes);
+        context.FindPath(nodes, startNode, endNode);
+    }
+
+    private Node FindClosestNode(Transform trans)
+    {
+        Node closestNode = null;
+        float closestDistance = Mathf.Infinity;
+        foreach (Node node in nodes)
+        {
+            if (Vector3.Distance(trans.position, node.transform.position) < closestDistance)
+            {
+                closestDistance = Vector3.Distance(trans.position, node.transform.position);
+                closestNode = node;
+            }
+        }
+        return closestNode;
     }
 
     private void OnDrawGizmos()
     {
-        SetupNodes();
-
-        Gizmos.color = Color.green;
-        foreach (Node node in nodes)
+        if (drawConnections)
         {
-            foreach (Node neigbour in node.neighbours)
+            Gizmos.color = Color.green;
+            nodes?.ForEach(node =>
             {
-                Gizmos.DrawLine(node.transform.position, neigbour.transform.position);
-            }
+                node?.neighbours?.ForEach(neighbour =>
+                {
+                    Gizmos.DrawLine(node.transform.position, neighbour.transform.position);
+                });
+            });
         }
-
-        if (drawPath)
+        
+        if (drawPath && nodes != null && startNode && endNode)
         {
             Gizmos.color = Color.red;
-            Node currentNode = nodes[nodes.Count - 1];
-            while (currentNode.parentNode != null)
+
+            Node currentNode = endNode;
+            while (currentNode != startNode)
             {
                 Gizmos.DrawLine(currentNode.transform.position, currentNode.parentNode.transform.position);
                 currentNode = currentNode.parentNode;
@@ -96,9 +114,9 @@ public class GameManager : MonoBehaviour
     {
         List<Node> pathToEnd = new List<Node>();
 
-        Node currentNode = nodes[nodes.Count - 1];
+        Node currentNode = endNode;
         pathToEnd.Add(currentNode);
-        while (currentNode.parentNode != null)
+        while (currentNode != startNode)
         {
             currentNode = currentNode.parentNode;
             pathToEnd.Add(currentNode);

@@ -59,6 +59,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""999c37ad-f616-46d5-ae7e-53f3f8df0ac5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""MousePosition"",
                     ""type"": ""Value"",
                     ""id"": ""b16947b0-b999-4ad3-bf9d-85eb2066f635"",
@@ -334,39 +342,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dc9c8409-caef-4b86-8632-5a8ed8af081e"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""LeftClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3cda74bc-070e-4fb9-9acb-caa5e870722d"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""LeftClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fb082a7d-3138-4d61-b9cb-6a40d6bd7023"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""LeftClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""bd35cdc4-daa4-489f-8b4f-bc759691ea25"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
@@ -384,6 +359,50 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc09fe2e-d4c6-4b6f-94b9-eea7d92d5197"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dce304d8-09f3-4b32-b62f-fbd77873932c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc9c8409-caef-4b86-8632-5a8ed8af081e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cda74bc-070e-4fb9-9acb-caa5e870722d"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -427,6 +446,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Camera_Speed = m_Camera.FindAction("Speed", throwIfNotFound: true);
         m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
         m_Camera_LeftClick = m_Camera.FindAction("LeftClick", throwIfNotFound: true);
+        m_Camera_RightClick = m_Camera.FindAction("RightClick", throwIfNotFound: true);
         m_Camera_MousePosition = m_Camera.FindAction("MousePosition", throwIfNotFound: true);
     }
 
@@ -482,6 +502,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Camera_Speed;
     private readonly InputAction m_Camera_Movement;
     private readonly InputAction m_Camera_LeftClick;
+    private readonly InputAction m_Camera_RightClick;
     private readonly InputAction m_Camera_MousePosition;
     public struct CameraActions
     {
@@ -492,6 +513,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Speed => m_Wrapper.m_Camera_Speed;
         public InputAction @Movement => m_Wrapper.m_Camera_Movement;
         public InputAction @LeftClick => m_Wrapper.m_Camera_LeftClick;
+        public InputAction @RightClick => m_Wrapper.m_Camera_RightClick;
         public InputAction @MousePosition => m_Wrapper.m_Camera_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
@@ -517,6 +539,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @LeftClick.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLeftClick;
                 @LeftClick.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLeftClick;
                 @LeftClick.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLeftClick;
+                @RightClick.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnRightClick;
+                @RightClick.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnRightClick;
+                @RightClick.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnRightClick;
                 @MousePosition.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
@@ -539,6 +564,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @LeftClick.started += instance.OnLeftClick;
                 @LeftClick.performed += instance.OnLeftClick;
                 @LeftClick.canceled += instance.OnLeftClick;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
@@ -571,6 +599,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnSpeed(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
     }
 }

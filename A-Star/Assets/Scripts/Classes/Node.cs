@@ -22,10 +22,9 @@ public class Node : MonoBehaviour
         this.gameManager = gameManager;
 
         neighbours = new List<Node>();
-
         foreach (Node node in nodes)
         {
-            if (Vector3.Distance(transform.position, node.transform.position) <= neighbourDistance && this != node)
+            if (Vector3.Distance(node.transform.position, transform.position) < neighbourDistance && node != this)
                 neighbours.Add(node);
         }
     }

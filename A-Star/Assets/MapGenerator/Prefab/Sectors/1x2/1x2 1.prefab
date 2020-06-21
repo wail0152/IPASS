@@ -177,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6624639696572556281}
   - component: {fileID: 3202642640930813091}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: 1x2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7766,6 +7766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: area 1x2
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e1157ac72fe530445a1bce02f42ac077,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1157ac72fe530445a1bce02f42ac077, type: 3}

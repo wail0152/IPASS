@@ -1560,7 +1560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8280589228310579949}
   - component: {fileID: 394047581912260023}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: angle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6161,6 +6161,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: area angle
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 33ea7b1ffa8ce8e439429078db5ef984,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ea7b1ffa8ce8e439429078db5ef984, type: 3}

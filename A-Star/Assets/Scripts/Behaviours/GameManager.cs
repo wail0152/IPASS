@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public PathOption pathOption;
     public float neighbourDistance;
     public bool bakePathOnStart;
-    public bool SetupNodeOnBake;
 
     [Header("Node Settings")]
     public Transform start;
@@ -18,6 +17,8 @@ public class GameManager : MonoBehaviour
     public bool drawPath;
     public bool drawConnections;
 
+    public delegate void BakePath();
+    public BakePath OnBakePath;
     private Node startNode;
     private Node endNode;
     private List<Node> nodes = new List<Node>();
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         startNode = FindClosestNode(start);
         endNode = FindClosestNode(end);
         UseStrategy();
+        OnBakePath?.Invoke();
     }
 
     public void SetupNodes()
@@ -58,7 +60,10 @@ public class GameManager : MonoBehaviour
             nodes.Add(node);
         }
 
-        nodes?.ForEach(node => node.AddNeigbours(this, nodes, neighbourDistance));
+        foreach (Node node in nodes)
+        {
+            node.AddNeigbours(this, nodes, neighbourDistance);
+        }
     }
 
     private void UseStrategy()
@@ -85,16 +90,19 @@ public class GameManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (drawConnections)
+        if (drawConnections && nodes != null)
         {
             Gizmos.color = Color.green;
-            nodes?.ForEach(node =>
+            foreach (Node node in nodes)
             {
-                node?.neighbours?.ForEach(neighbour =>
+                if (node != null)
                 {
-                    Gizmos.DrawLine(node.transform.position, neighbour.transform.position);
-                });
-            });
+                    foreach (Node neighbour in node.neighbours)
+                    {
+                        Gizmos.DrawLine(node.transform.position, neighbour.transform.position);
+                    }
+                }
+            }
         }
         
         if (drawPath && nodes != null && startNode && endNode)
@@ -110,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    private List<Node> GetPathToEnd()
+    public List<Node> GetPathToEnd()
     {
         List<Node> pathToEnd = new List<Node>();
 
@@ -121,6 +129,7 @@ public class GameManager : MonoBehaviour
             currentNode = currentNode.parentNode;
             pathToEnd.Add(currentNode);
         }
+        pathToEnd.Reverse();
 
         return pathToEnd;
     }

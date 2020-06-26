@@ -29,20 +29,23 @@ public class GameManager : MonoBehaviour
         Dijksta
     }
 
+    //Mapping enums to IPathfindingStrategy to be able to cleanly add new strategys
     private IDictionary<PathOption, IPathfindingStrategy> lookupStrategy = new Dictionary<PathOption, IPathfindingStrategy>()
     {
         { PathOption.AStar, new Astar() },
         { PathOption.Dijksta, new Dijkstra() }
     };
 
+    //Setting up the nodes by finding them all and getting the connections and excuting the chosen algorithm if bakePathOnStart
     private void Start()
     {
-        SetupNodes();
+        //SetupNodes();
 
         if (bakePathOnStart)
             SetupAlgorithm();
     }
 
+    //Finding the closest nodes to the start and end markers, using the strategy and invoking the OnBakePath event to let subsribers know that the path has been changed
     public void SetupAlgorithm()
     {
         startNode = FindClosestNode(start);
@@ -51,21 +54,18 @@ public class GameManager : MonoBehaviour
         OnBakePath?.Invoke();
     }
 
+    //Finding all the nodes in the scene and setting their neigbours
     public void SetupNodes()
     {
         nodes.Clear();
-
-        foreach (Node node in FindObjectsOfType<Node>())
-        {
-            nodes.Add(node);
-        }
-
+        nodes.AddRange(FindObjectsOfType<Node>());
         foreach (Node node in nodes)
         {
             node.AddNeigbours(this, nodes, neighbourDistance);
         }
     }
 
+    //Making a new strategy and setting the correct pathfinding strategy for the context after that FindPath
     private void UseStrategy()
     {
         Context context = new Context();
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
         context.FindPath(nodes, startNode, endNode);
     }
 
+    //Finding the closest node to a transform and returning it
     private Node FindClosestNode(Transform trans)
     {
         Node closestNode = null;
@@ -88,27 +89,20 @@ public class GameManager : MonoBehaviour
         return closestNode;
     }
 
+    //Drawing the connections to each neighbour and drawing the calculated path
     private void OnDrawGizmos()
     {
-        if (drawConnections && nodes != null)
+        if (drawConnections)
         {
             Gizmos.color = Color.green;
-            foreach (Node node in nodes)
-            {
-                if (node != null)
-                {
-                    foreach (Node neighbour in node.neighbours)
-                    {
-                        Gizmos.DrawLine(node.transform.position, neighbour.transform.position);
-                    }
-                }
-            }
+            nodes?.ForEach(node => {
+                node?.neighbours?.ForEach(neighbour => Gizmos.DrawLine(node.transform.position, neighbour.transform.position));
+            });
         }
         
-        if (drawPath && nodes != null && startNode && endNode)
+        if (drawPath && startNode && endNode)
         {
             Gizmos.color = Color.red;
-
             Node currentNode = endNode;
             while (currentNode != startNode)
             {
@@ -118,6 +112,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    //Getting the path from the start node to the end node
     public List<Node> GetPathToEnd()
     {
         List<Node> pathToEnd = new List<Node>();

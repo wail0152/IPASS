@@ -10,12 +10,14 @@ public class Astar : IPathfindingStrategy
     private Node startNode;
     private Node endNode;
 
+    //This methode is inherited from the IPathfindingStrategy interface and acts like a custom Start methode
     public void Excute(List<Node> nodes, Node startNode, Node endNode)
     {
         Setup(nodes, startNode, endNode);
         Algorithm();
     }
 
+    //This sets up the variables
     private void Setup(List<Node> nodes, Node startNode, Node endNode)
     {
         openNodes = new List<Node>();
@@ -25,6 +27,7 @@ public class Astar : IPathfindingStrategy
         openNodes.Add(this.startNode);
     }
 
+    //This is the A-star algorithm
     private void Algorithm()
     {
         while (true)
@@ -42,16 +45,12 @@ public class Astar : IPathfindingStrategy
                     continue;
 
                 if (!openNodes.Contains(neighbour))
-                {
-                    neighbour.gCost = Vector3.Distance(neighbour.transform.position, startNode.transform.position);
-                    neighbour.hCost = Vector3.Distance(neighbour.transform.position, endNode.transform.position);
-                    neighbour.parentNode = currentNode;
-                    openNodes.Add(neighbour);
-                }
+                    ExpandSearch(neighbour, currentNode);
             }
         }
     }
 
+    //This returns the closest node by getting the lowest cost node
     private Node LowestCostNode()
     {
         Node currentNode = null;
@@ -65,6 +64,15 @@ public class Astar : IPathfindingStrategy
             }
         }
         return currentNode;
+    }
+
+    //This methode calculates the g and h cost and then assigns the currentnode as the parent node and afterwards adds the node to the open list
+    private void ExpandSearch(Node neighbour, Node currentNode)
+    {
+        neighbour.gCost = Vector3.Distance(neighbour.transform.position, startNode.transform.position);
+        neighbour.hCost = Vector3.Distance(neighbour.transform.position, endNode.transform.position);
+        neighbour.parentNode = currentNode;
+        openNodes.Add(neighbour);
     }
 
 }

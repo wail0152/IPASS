@@ -114,10 +114,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 677, y: 492}
-  m_MaxSize: {x: 14001, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 97
+  controlID: 128
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -163,8 +163,8 @@ MonoBehaviour:
     y: 0
     width: 220
     height: 454
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -285,10 +285,10 @@ MonoBehaviour:
     y: 0
     width: 1102
     height: 731
-  m_MinSize: {x: 402, y: 492}
+  m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 98
+  controlID: 129
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -310,10 +310,10 @@ MonoBehaviour:
     y: 0
     width: 1102
     height: 454
-  m_MinSize: {x: 402, y: 221}
-  m_MaxSize: {x: 8002, y: 4021}
+  m_MinSize: {x: 403, y: 221}
+  m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 99
+  controlID: 101
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -445,20 +445,20 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/MapGenerator/Prefab/Sectors/angle
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/MapGenerator/Prefab/Sectors/angle
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Documents\Game development\Unity\IPASS\A-Star
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 84}
-    m_SelectedIDs: b44f1300
-    m_LastClickedID: 1265588
-    m_ExpandedIDs: 00000000305f0200325f0200345f0200365f0200385f0200ae031b00b0031b00ba031b00be031b0000ca9a3b
+    scrollPos: {x: 0, y: 24}
+    m_SelectedIDs: b25f0200
+    m_LastClickedID: 155570
+    m_ExpandedIDs: 00000000ac5f0200ae5f0200b05f0200b25f0200b45f0200b65f0200b85f0200ba5f020000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -486,7 +486,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000305f0200325f0200345f0200365f0200385f0200
+    m_ExpandedIDs: 00000000ac5f0200ae5f0200b05f0200b25f0200b45f0200b65f0200b85f0200ba5f0200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -571,23 +571,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ec191c00
-      m_LastClickedID: 1841644
-      m_ExpandedIDs: 24caffff42caffff52caffff58caffffa2cfffffb0cfffffb2cfffffb8cfffff5ed6ffff66fbffffc44b000060680000825401009086010010af0100aeba01003c1c1b00444b1b008a671b00fa241c0008571c00145f1c00887f1c00268b1c00
+      m_SelectedIDs: c0330000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 66fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Vehicle01_HandleBarMesh
-        m_OriginalName: Vehicle01_HandleBarMesh
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -13788
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -633,9 +633,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3.2275548, y: 3.6126945, z: 45.244602}
+    m_Target: {x: -15.864144, y: 9.547978, z: 3.8981595}
     speed: 2
-    m_Value: {x: 3.2275548, y: 3.6126945, z: 45.244602}
+    m_Value: {x: -15.864144, y: 9.547978, z: 3.8981595}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -681,13 +681,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.13389473, y: 0.82535076, z: -0.21992789, w: -0.502515}
+    m_Target: {x: 0.023162002, y: -0.9580076, z: 0.27414313, w: 0.08095953}
     speed: 2
-    m_Value: {x: -0.13389331, y: 0.825342, z: -0.21992555, w: -0.5025097}
+    m_Value: {x: 0.023161726, y: -0.95799613, z: 0.27413985, w: 0.08095856}
   m_Size:
-    m_Target: 16.60033
+    m_Target: 4.900596
     speed: 2
-    m_Value: 16.60033
+    m_Value: 4.600596
   m_Ortho:
     m_Target: 0
     speed: 2

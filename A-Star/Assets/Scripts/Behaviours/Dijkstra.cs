@@ -6,6 +6,6 @@ public class Dijkstra : IPathfindingStrategy
 {
     public void Excute(List<Node> nodes, Node startNode, Node endNode)
     {
-        Debug.Log("Dijkstra");
+        Debug.Log("Dijkstra Strategy not implemented");
     }
 }

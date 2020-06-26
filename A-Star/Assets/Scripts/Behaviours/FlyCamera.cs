@@ -23,6 +23,7 @@ public class FlyCamera : MonoBehaviour
     private float speedMultiplier;
     private float upMultiplier;
 
+    //Binding all the controls to methodes
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -47,16 +48,20 @@ public class FlyCamera : MonoBehaviour
         ToggleEscape();
     }
 
+    //Enabling the controls
     private void OnEnable() => controls.Enable();
 
+    //Disabling the controls 
     private void OnDisable() => controls.Disable();
 
+    //Toggling between cursor modes
     private void ToggleEscape()
     {
         Cursor.lockState = (Cursor.lockState == CursorLockMode.None) ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = (Cursor.lockState == CursorLockMode.None);
     }
 
+    //Roting the camera
     private void CalculateRotation(Vector2 dir)
     {
         if (Cursor.lockState == CursorLockMode.None)
@@ -67,7 +72,8 @@ public class FlyCamera : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(rotation.x, Vector3.up);
         transform.localRotation *= Quaternion.AngleAxis(rotation.y, Vector3.left);
     }
-
+    
+    //Setting the movementspeed depending on the input
     private void SetSpeed(float speed)
     {
         if (speed > 0)
@@ -78,6 +84,7 @@ public class FlyCamera : MonoBehaviour
             movementSpeed = normalMoveSpeed;
     }
 
+    //Setting the movement speed and updatting the player position
     private void Update()
     {
         SetSpeed(speedMultiplier);
@@ -85,6 +92,7 @@ public class FlyCamera : MonoBehaviour
         transform.position += transform.up * verticalSpeed * upMultiplier * Time.deltaTime;
     }
 
+    //Setting the start and end point transforms to the clicked point
     private void SetMarkerPosition(Transform marker)
     {
         RaycastHit hit;

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     //Setting up the nodes by finding them all and getting the connections and excuting the chosen algorithm if bakePathOnStart
     private void Start()
     {
-        //SetupNodes();
+        SetupNodes();
 
         if (bakePathOnStart)
             SetupAlgorithm();

@@ -25,7 +25,7 @@ public class Node : MonoBehaviour
         neighbours = new List<Node>();
         foreach (Node node in nodes)
         {
-            if (Vector3.Distance(node.transform.position, transform.position) < neighbourDistance && node != this)
+            if (Vector3.Distance(node.transform.position, transform.position) < neighbourDistance)
                 neighbours.Add(node);
         }
     }
@@ -35,7 +35,7 @@ public class Node : MonoBehaviour
     {
         if (transform.hasChanged && gameManager != null)
         {
-            gameManager.SetupNodes();
+            gameManager.UpdateNode(this);
             transform.hasChanged = false;
         }
     }

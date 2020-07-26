@@ -59,17 +59,19 @@ public class GameManager : MonoBehaviour
     {
         nodes.Clear();
         nodes.AddRange(FindObjectsOfType<Node>());
-        foreach (Node node in nodes)
-        {
-            node.AddNeigbours(this, nodes, neighbourDistance);
-        }
+        nodes.ForEach(node => node.AddNeigbours(this, nodes, neighbourDistance));
+    }
+
+    //Updating a node and all their neigbours
+    public void UpdateNode(Node baseNode)
+    {
+        baseNode?.neighbours?.ForEach(node => node?.AddNeigbours(this, nodes, neighbourDistance));
     }
 
     //Making a new strategy and setting the correct pathfinding strategy for the context after that FindPath
     private void UseStrategy()
     {
-        Context context = new Context();
-        context.SetStrategy(lookupStrategy[pathOption]);
+        Context context = new Context(lookupStrategy[pathOption]);
         context.FindPath(nodes, startNode, endNode);
     }
 
